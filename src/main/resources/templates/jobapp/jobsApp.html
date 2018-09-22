@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="navbar">
+   
+      
+<th:block layout:fragment="content">
+<body>
+<h2>[[#{button}]]</h2><br/>
+<div class="row">
+
+<h3>All Jobs</h3>
+<table class="table">
+<thead>
+<tr>
+<th>jobTitle</th>
+<th>jobDescription</th>
+<th>NumberOfPeopleToHire</th>
+<th>lastAppDate</th> 
+<th>Basvuru</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="job: ${jobs}">
+<td><a class="btn btn-info" th:text="${job.jobTitle}"th:href="@{'app/'+${job.id}}"></a></td>
+<td><p th:text="${job.jobDescription}"></p></td>
+<td><p th:text="${job.numberOfPeopleToHire}"></p></td>
+<td><p th:text="${job.lastAppDate}"></p></td> 
+<td><a  class="btn btn-light"th:href="@{'app/'+${job.id}+'/basvur'}"> Başvur</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</th:block>
+</html>

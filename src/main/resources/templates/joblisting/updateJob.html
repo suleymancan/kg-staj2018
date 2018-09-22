@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="navbar">
+<th:block layout:fragment="content">
+<body>
+	<form th:object="${jobListing}" method="post"
+		th:action="@{'/hr/'+${jobListing.id}+'/update'}" class="needs-validation was-validated">
+		<!-- th value ile  alanları dolu getirdik.-->
+		<div class="form-group">
+
+			<label th:text="#{jobListing.jobTitle}"></label> <input type="text" class="form-control"
+				th:field="*{jobTitle}" th:value="*{jobTitle}"  id="jobTitle" required>
+			<p style="color: red"  th:errors="*{jobTitle}">jobTitle Error! </p>
+		</div>
+
+		<div>
+			<label th:text="#{jobListing.jobDescription}">J</label>
+			<textarea type="text" th:field="*{jobDescription}" th:value="*{jobDescription}" class="form-control" 
+				id="jobDescription" required />
+			<p style="color: red" th:errors="*{jobDescription}">jobDescription Error! </p>
+		</div>
+
+		<div class="form-group">
+			<label th:text="#{jobListing.NumberOfPeopleToHire}"></label> <input
+				type="text" th:field="*{numberOfPeopleToHire}" th:value="*{numberOfPeopleToHire}" class="form-control"
+				 id="NumberOfPeopleToHire" required>
+			<p style="color: red"  th:errors="*{numberOfPeopleToHire}">NumberOfPeopleToHire Error! </p>
+		</div>
+
+
+		<div class="container">
+			<div class="row">
+				<!-- Include Bootstrap Datepicker -->
+				<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+				<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+				<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+				<div class="form-group">
+					<div class="col-xs-5 date">
+						<div class="input-group input-append date" id="datePicker">
+							<label th:text="#{jobListing.lastAppDate}"></label>
+							<input type="text" th:value="*{lastAppDate}" th:field="*{lastAppDate}"  id="lastAppDate"  class="form-control" required />
+							<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+							<p style="color: red" th:errors="*{lastAppDate}">lastAppDate Error! </p>
+						</div>
+					</div>
+				</div>
+
+				<script>
+                    $(document).ready(function() {
+                        $('#datePicker')
+                            .datepicker({
+                                format: 'dd/mm/yyyy'
+                            })
+                            .on('changeDate', function(e) {
+                                // Revalidate the date field
+                                $('#eventForm').formValidation('revalidateField', 'date');
+                            });
+
+                        $('#eventForm').formValidation({
+                            framework: 'bootstrap',
+                            icon: {
+                                valid: 'glyphicon glyphicon-ok',
+                                invalid: 'glyphicon glyphicon-remove',
+                                validating: 'glyphicon glyphicon-refresh'
+                            },
+                            fields: {
+                                name: {
+                                    validators: {
+                                        notEmpty: {
+                                            message: 'The name is required'
+                                        }
+                                    }
+                                },
+                                date: {
+                                    validators: {
+                                        notEmpty: {
+                                            message: 'The date is required'
+                                        },
+                                        date: {
+                                            format: 'MM-DD-YYYY',
+                                            message: 'The date is not a valid'
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+				</script>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary" th:text="#{button}"></button>
+	</form>
+</body>
+</th:block>
+</html>

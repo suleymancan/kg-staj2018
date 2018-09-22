@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="navbar">
+<th:block layout:fragment="content">
+<body>
+
+
+	<div class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>Address</th>
+					<th>thoughtsOnJob</th>
+					<th>FileName</th>
+					<th>FileUrl</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="job: ${jobApp}" th:object="${job}">
+
+					<td th:text="*{name}"/>
+					<td th:text="*{email}"/>
+					<td th:text="*{phone}"/>
+					<td th:text="*{address}"/>
+					<td th:text="*{thoughtsOnJob}"/>
+					<td th:text="*{fileInfo.filename}"/>
+					<td><a th:href="@{/hr/files/__*{fileInfo.filename}__}">Link</a> </td>
+
+
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+</body>
+</th:block>
+</html>

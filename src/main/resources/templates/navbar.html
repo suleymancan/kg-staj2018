@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Example HR MANAGER Application">
+    <meta name="author" content="Kod Gemisi 2018">
+
+    <title>Kod Gemisi 2018</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/template.css}">
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <h5 class="navbar-brand">Kod Gemisi 2018 </h5>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/hr}" th:text="#{navbar.hrManager}"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/app}" th:text="#{navbar.app}"></a>
+            </li>
+        </ul>
+
+    </div>
+
+
+    <a href="?lang=tr"><img th:src="@{/images/TR.png}"/></a> |||
+    <a href="?lang=en"><img th:src="@{/images/EN.png}"/></a>
+
+
+</nav>
+
+<div class="container">
+    <th:block layout:fragment="content">
+    </th:block>
+</div>
+
+
+</body>
+</html>

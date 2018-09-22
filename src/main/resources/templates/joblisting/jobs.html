@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="navbar">
+<th:block layout:fragment="content">
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<h5 class="navbar-brand">HR MANAGER ALL JOB LISTING PAGE</h5>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a  class="btn btn-outline-success"th:href="@{/hr/new}">New Job Listing</a>
+      </li>
+      <li class="nav-item" >
+        <form th:action="@{/logout}" method="post">
+<input type="submit" class="btn btn-danger" value="Logout"/>
+            <input type ="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<!-- <input type ="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+csrf token oluşmasını ve form submit edildiginde gecerli csrf token degerinin sunucuya döndürülmesini saglar.
+-->
+
+</form>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+<div class="row">
+
+<h3>All Jobs</h3>
+<table class="table">
+<thead>
+<tr>
+<th>jobTitle</th>
+<th>jobDescription</th>
+<th>NumberOfPeopleToHire</th>
+<th>lastAppDate</th> 
+<th>Basvuranlar</th> 
+</tr>
+</thead>
+<tbody>
+<tr th:each="job: ${jobs}" th:object="${job}">
+<td><a class="btn btn-info"th:text="*{jobTitle}"th:href="@{hr/__${job.id}__}"></a></td>
+<td><p th:text="*{jobDescription}"></p></td>
+<td><p th:text="*{numberOfPeopleToHire}"></p></td>
+<td><p th:text="*{lastAppDate}"></p></td>
+<td><a  class="btn btn-light" th:href="@{'hr/'+${job.id}+'/basvuranlar'}">Basvuranlar</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</th:block>
+</html>

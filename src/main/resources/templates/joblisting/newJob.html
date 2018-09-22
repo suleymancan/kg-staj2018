@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="navbar">
+<!-- layout:decorate kısmı detaylı incelenebilir. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+
+
+<th:block layout:fragment="content">
+
+
+<body>
+
+<form th:object="${jobListingDTO}" method="post" th:action="@{/hr/new}" class="needs-validation was-validated">
+
+<div class="mb-3">
+<label th:text="#{jobListing.jobTitle}"></label>
+<input type="text" th:field="*{jobTitle}"  class="form-control" required />
+    <div class="valid-tooltip">
+        looks good!
+    </div>
+  <p style="color: red"  th:errors="*{jobTitle}">Job Title Error! </p>
+</div>
+
+<div class="mb-3">
+<label th:text="#{jobListing.jobDescription}"></label>
+    <textarea type="text" th:field="*{jobDescription}"  class="form-control" required></textarea>
+ <p style="color: red" th:if="${#fields.hasErrors('jobDescription')}" th:errors="*{jobDescription}">Job Description Error! </p>
+    <div class="valid-tooltip">
+        Looks good!
+    </div>
+</div>
+
+<div class="mb-3">
+<label th:text="#{jobListing.NumberOfPeopleToHire}"></label>
+<input type="number" th:field="*{numberOfPeopleToHire}"  class="form-control" required />
+    <p style="color: red" th:if="${#fields.hasErrors('numberOfPeopleToHire')}" th:errors="*{numberOfPeopleToHire}  ">NumberOfPeopleToHire Error! </p>
+    <div class="valid-tooltip">
+        Looks good!
+    </div>
+</div>
+
+
+
+
+    <div class="mb-3">
+        <div class="row">
+            <!-- Include Bootstrap Datepicker -->
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+            <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+            <div class="form-group">
+
+                    <div class="input-group input-append date" id="datePicker">
+                        <label th:text="#{jobListing.lastAppDate}"></label><br>
+                        <input type="text"  th:field="*{lastAppDate}" id="lastAppDate"  class="form-control" required />
+                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <p style="color: red" th:if="${#fields.hasErrors('lastAppDate')}" th:errors="*{lastAppDate}">lastAppDate Error! </p>
+                    </div>
+                <div class="valid-tooltip">
+                    Looks good!
+                </div>
+
+            </div>
+
+            <script>
+                $(document).ready(function() {
+                    $('#datePicker')
+                        .datepicker({
+                            format: 'dd/mm/yyyy'
+                        })
+                        .on('changeDate', function(e) {
+                            // Revalidate the date field
+                            $('#eventForm').formValidation('revalidateField', 'date');
+                        });
+
+                    $('#eventForm').formValidation({
+                        framework: 'bootstrap',
+                        icon: {
+                            valid: 'glyphicon glyphicon-ok',
+                            invalid: 'glyphicon glyphicon-remove',
+                            validating: 'glyphicon glyphicon-refresh'
+                        },
+                        fields: {
+                            name: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'The name is required'
+                                    }
+
+                                }
+                            },
+                            date: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'The date is required'
+                                    },
+                                    validators:{
+
+                                    },
+                                    date: {
+                                        format: 'MM-DD-YYYY',
+                                        message: 'The date is not a valid'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+
+
+        </div>
+    </div>
+
+
+    <button  type="submit" class="btn btn-primary" th:text="#{button}"></button>
+
+
+</form>
+
+
+
+</body>
+</th:block>
+</html>
+
